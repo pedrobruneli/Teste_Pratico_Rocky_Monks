@@ -9,6 +9,12 @@ console.log("\n\nIMPRIMINDO PRECO TOTAL DE CADA CATEGORIA...\n\n");
 printPricesByCategory("saida.json");
 
 // FIX AND EXPORT JSON
+
+function readFile(jsonFile) {
+    const fs = require('fs');
+    return fs.readFileSync(jsonFile);
+}   
+
 function changeJSONNames(json) {
     for(var jsonOBJ in json){
         var objName = json[jsonOBJ].name;
@@ -37,7 +43,7 @@ function changeJSONQtd(json) {
 }
 
 function exportJSON(jsonFile) {
-    var jsonNEW = JSON.parse(readJSONFile(jsonFile));
+    var jsonNEW = JSON.parse(readFile(jsonFile));
     changeJSONNames(jsonNEW);
     changeJSONPrices(jsonNEW);
     changeJSONQtd(jsonNEW);
@@ -47,13 +53,8 @@ function exportJSON(jsonFile) {
     });
 }
 
-function readJSONFile(jsonFile) {
-    const fs = require('fs');
-    return fs.readFileSync(jsonFile);
-}
-
 function orderJSON(jsonFile) {
-    var json = JSON.parse(readJSONFile(jsonFile));
+    var json = JSON.parse(readFile(jsonFile));
     // sort by category
     var jsonOrdenado = json.sort((a,b) => {
         if((a.category == b.category) && (a.id > b.id)) return 1;
