@@ -15,38 +15,31 @@ function readFile(jsonFile) {
     return fs.readFileSync(jsonFile);
 }   
 
-function changeJSONNames(json) {
-    for(var jsonOBJ in json){
-        var objName = json[jsonOBJ].name;
-        var newName = objName.replaceAll(/æ/g,"a").replaceAll(/¢/g,"c").replaceAll(/ø/g,"o").replaceAll(/ß/g,"b");
-        json[jsonOBJ].name = newName;
-    }
-    jsonFile = json;
+function changeJSONNames(jsonOBJ) {
+        var objName = jsonOBJ.name;
+        var newName = objName.replace(/æ/g,"a").replace(/¢/g,"c").replace(/ø/g,"o").replace(/ß/g,"b");
+        jsonOBJ.name = newName;
 }
 
-function changeJSONPrices(json) {
-    for(var jsonOBJ in json){
-        var objPrice = json[jsonOBJ].price;
+function changeJSONPrices(jsonOBJ) {
+        var objPrice = jsonOBJ.price;
         var newPrice = parseFloat(objPrice);
-        json[jsonOBJ].price = newPrice;
-    }
-    jsonFile = json;
+        jsonOBJ.price = newPrice;
 }
 
-function changeJSONQtd(json) {
-    for(var jsonOBJ in json){
-        if(json[jsonOBJ].quantity == null) {
-            json[jsonOBJ].quantity = 0;
+function changeJSONQtd(jsonOBJ) {
+        if(jsonOBJ.quantity == null) {
+            jsonOBJ.quantity = 0;
         }
-    }
-    jsonFile = json;
 }
 
 function exportJSON(jsonFile) {
     var jsonNEW = JSON.parse(readFile(jsonFile));
-    changeJSONNames(jsonNEW);
-    changeJSONPrices(jsonNEW);
-    changeJSONQtd(jsonNEW);
+    for(var jsonOBJ of jsonNEW) {
+      changeJSONNames(jsonOBJ);
+      changeJSONPrices(jsonOBJ);
+      changeJSONQtd(jsonOBJ);
+    }
     const fs = require('fs');
     fs.writeFileSync("saida.json",JSON.stringify(jsonNEW,null,2), (err, result) => {
         if(err) console.log(err);
@@ -75,18 +68,18 @@ function printPricesByCategory(jsonFile) {
     var jsonOrdenado = orderJSON(jsonFile);
     var categoriaPassado = "";
     var totalPrice = 0;
-    for(produtos in jsonOrdenado) {
-        var categoria = jsonOrdenado[produtos].category;
+    for(const [index,produtos] of jsonOrdenado.entries()) {
+        var categoria = produtos.category;
         if(categoriaPassado != "" && categoriaPassado != categoria) {
-            if(produtos == (Object.keys(jsonOrdenado).length-1)) {
+            if(index == (Object.keys(jsonOrdenado).length-1)) {
                 console.log(categoriaPassado + ": R$ " + totalPrice);
-                console.log(categoria + ": R$ " + (jsonOrdenado[produtos].price)*jsonOrdenado[produtos].quantity);
+                console.log(categoria + ": R$ " + (produtos.price)*produtos.quantity);
             } else {
                 console.log(categoriaPassado + ": R$ " + totalPrice);
                 totalPrice = 0;
             }
         }
-        totalPrice += (jsonOrdenado[produtos].price)*jsonOrdenado[produtos].quantity;
+        totalPrice += (produtos.price)*produtos.quantity;
         categoriaPassado = categoria;
     }
 }
