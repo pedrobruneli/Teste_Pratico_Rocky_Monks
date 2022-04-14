@@ -91,7 +91,6 @@ function printPricesByCategory(jsonFile) {
     for (categoria of Object.entries(categorias)) {
         console.log(categoria[0] + ": R$ " + categoria[1].total);
     }
-
     /* if(categoriaPassado != "" && categoriaPassado != categoria) {
     if(produtos == (Object.keys(jsonOrdenado).length-1)) {
         console.log(categoriaPassado + ": R$ " + totalPrice);
