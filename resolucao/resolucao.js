@@ -1,4 +1,3 @@
-
 // EXPORT JSON CORRIGIDO
 exportJSON("broken-database.json");
 // PRINTA OS NOMES DOS PRODUTOS EM ORDEM DE CATEGORIA E ID
@@ -16,7 +15,7 @@ function readFile(jsonFile) {
 }
 
 function changeJSONNames(json) {
-    for (let jsonOBJ in json) {
+    for (jsonOBJ in json) {
         let objName = json[jsonOBJ].name;
         let newName = objName.replaceAll(/æ/g, "a").replaceAll(/¢/g, "c").replaceAll(/ø/g, "o").replaceAll(/ß/g, "b");
         json[jsonOBJ].name = newName;
@@ -25,7 +24,7 @@ function changeJSONNames(json) {
 }
 
 function changeJSONPrices(json) {
-    for (const jsonOBJ in json) {
+    for (jsonOBJ in json) {
         let objPrice = json[jsonOBJ].price;
         let newPrice = parseFloat(objPrice);
         json[jsonOBJ].price = newPrice;
@@ -34,7 +33,7 @@ function changeJSONPrices(json) {
 }
 
 function changeJSONQtd(json) {
-    for (const jsonOBJ in json) {
+    for (jsonOBJ in json) {
         if (json[jsonOBJ].quantity == null) {
             json[jsonOBJ].quantity = 0;
         }
