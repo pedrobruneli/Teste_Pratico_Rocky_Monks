@@ -7,13 +7,6 @@
     "category": "Panelas"
   },
   {
-    "id": 9628920,
-    "name": "Lava & Seca 10,2 Kg Samsung Eco bubble branca com 09 Programas de Lavagem",
-    "quantity": 57,
-    "price": 3719.7,
-    "category": "Eletrodomésticos"
-  },
-  {
     "id": 1316334,
     "name": "Refrigerador bottom Freezer Electrolux de 02 Portas Frost Free com 598 Litros",
     "quantity": 12,
@@ -68,5 +61,12 @@
     "price": 699,
     "category": "Acessórios",
     "quantity": 0
+  },
+  {
+    "id": 9628920,
+    "name": "Lava & Seca 10,2 Kg Samsung Eco bubble branca com 09 Programas de Lavagem",
+    "quantity": 57,
+    "price": 3719.7,
+    "category": "Eletrodomésticos"
   }
 ]

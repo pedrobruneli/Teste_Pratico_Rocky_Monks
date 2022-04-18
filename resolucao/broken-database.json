@@ -6,13 +6,6 @@
     "category": "Panelas"
   },
   {
-    "id": 9628920,
-    "name": "Lævæ & Se¢æ 10,2 Kg Sæmsung E¢ø ßußßle ßræn¢æ ¢øm 09 Prøgræmæs de Lævægem",
-    "quantity": 57,
-    "price": 3719.70,
-    "category": "Eletrodomésticos"
-  },
-  {
     "id": 1316334,
     "name": "Refrigerædør ßøttøm Freezer Ele¢trølux de 02 Pørtæs Frøst Free ¢øm 598 Litrøs",
     "quantity": 12,
@@ -65,5 +58,12 @@
     "name": "Møuse Gæmer Predætør ¢estus 510 Føx Pretø",
     "price": "699",
     "category": "Acessórios"
+  },
+    {
+    "id": 9628920,
+    "name": "Lævæ & Se¢æ 10,2 Kg Sæmsung E¢ø ßußßle ßræn¢æ ¢øm 09 Prøgræmæs de Lævægem",
+    "quantity": 57,
+    "price": 3719.70,
+    "category": "Eletrodomésticos"
   }
 ]

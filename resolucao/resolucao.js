@@ -15,27 +15,27 @@ function readFile(jsonFile) {
 }
 
 function changeJSONNames(json) {
-    for (jsonOBJ in json) {
-        let objName = json[jsonOBJ].name;
+    for (jsonOBJ of json) {
+        let objName = jsonOBJ.name;
         let newName = objName.replaceAll(/æ/g, "a").replaceAll(/¢/g, "c").replaceAll(/ø/g, "o").replaceAll(/ß/g, "b");
-        json[jsonOBJ].name = newName;
+        jsonOBJ.name = newName;
     }
     jsonFile = json;
 }
 
 function changeJSONPrices(json) {
-    for (jsonOBJ in json) {
-        let objPrice = json[jsonOBJ].price;
+    for (jsonOBJ of json) {
+        let objPrice = jsonOBJ.price;
         let newPrice = parseFloat(objPrice);
-        json[jsonOBJ].price = newPrice;
+        jsonOBJ.price = newPrice;
     }
     jsonFile = json;
 }
 
 function changeJSONQtd(json) {
-    for (jsonOBJ in json) {
-        if (json[jsonOBJ].quantity == null) {
-            json[jsonOBJ].quantity = 0;
+    for (jsonOBJ of json) {
+        if (jsonOBJ.quantity == null) {
+            jsonOBJ.quantity = 0;
         }
     }
     jsonFile = json;
@@ -65,8 +65,8 @@ function orderJSON(jsonFile) {
 
 function printProducts(jsonFile) {
     let jsonOrdenado = orderJSON(jsonFile);
-    for (produtos in jsonOrdenado) {
-        console.log(jsonOrdenado[produtos].name);
+    for (produtos of jsonOrdenado) {
+        console.log(produtos.name);
     }
 }
 
@@ -75,28 +75,21 @@ function printPricesByCategory(jsonFile) {
     let categoriaPassado = "";
     let totalPrice = 0;
     let categorias = {};
-    for (produtos in jsonOrdenado) {
-        let categoria = jsonOrdenado[produtos].category;
+    for (produtos of jsonOrdenado) {
+        let categoria = produtos.category;
         if (categorias[categoria] == null) {
             categorias[categoria] = {
-                total: (jsonOrdenado[produtos].price) * jsonOrdenado[produtos].quantity
+                total: (produtos.price) * produtos.quantity
             }
         } else {
-            categorias[categoria].total += (jsonOrdenado[produtos].price) * jsonOrdenado[produtos].quantity;
+            categorias[categoria].total += (produtos.price) * produtos.quantity;
         }
-        totalPrice += (jsonOrdenado[produtos].price) * jsonOrdenado[produtos].quantity;
+        totalPrice += (produtos.price) * produtos.quantity;
         categoriaPassado = categoria;
     }
     for (categoria of Object.entries(categorias)) {
         console.log(categoria[0] + ": R$ " + categoria[1].total);
     }
-    /* if(categoriaPassado != "" && categoriaPassado != categoria) {
-    if(produtos == (Object.keys(jsonOrdenado).length-1)) {
-        console.log(categoriaPassado + ": R$ " + totalPrice);
-        console.log(categoria + ": R$ " + (jsonOrdenado[produtos].price)*jsonOrdenado[produtos].quantity);
-    } else {
-        console.log(categoriaPassado + ": R$ " + totalPrice);
-        totalPrice = 0;
-    }
-} */
+
+
 }
