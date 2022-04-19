@@ -14,38 +14,31 @@ function readFile(jsonFile) {
     return fs.readFileSync(jsonFile);
 }
 
-function changeJSONNames(json) {
-    for (jsonOBJ of json) {
-        let objName = jsonOBJ.name;
-        let newName = objName.replaceAll(/æ/g, "a").replaceAll(/¢/g, "c").replaceAll(/ø/g, "o").replaceAll(/ß/g, "b");
-        jsonOBJ.name = newName;
-    }
-    jsonFile = json;
+function changeJSONNames(jsonOBJ) {
+    let objName = jsonOBJ.name;
+    let newName = objName.replace(/æ/g, "a").replace(/¢/g, "c").replace(/ø/g, "o").replace(/ß/g, "b");
+    jsonOBJ.name = newName;
 }
 
-function changeJSONPrices(json) {
-    for (jsonOBJ of json) {
-        let objPrice = jsonOBJ.price;
-        let newPrice = parseFloat(objPrice);
-        jsonOBJ.price = newPrice;
-    }
-    jsonFile = json;
+function changeJSONPrices(jsonOBJ) {
+    let objPrice = jsonOBJ.price;
+    let newPrice = parseFloat(objPrice);
+    jsonOBJ.price = newPrice;
 }
 
-function changeJSONQtd(json) {
-    for (jsonOBJ of json) {
-        if (jsonOBJ.quantity == null) {
-            jsonOBJ.quantity = 0;
-        }
+function changeJSONQtd(jsonOBJ) {
+    if (jsonOBJ.quantity == null) {
+        jsonOBJ.quantity = 0;
     }
-    jsonFile = json;
 }
 
 function exportJSON(jsonFile) {
     let jsonNEW = JSON.parse(readFile(jsonFile));
-    changeJSONNames(jsonNEW);
-    changeJSONPrices(jsonNEW);
-    changeJSONQtd(jsonNEW);
+    for (jsonOBJ of jsonNEW) {
+        changeJSONNames(jsonOBJ);
+        changeJSONPrices(jsonOBJ);
+        changeJSONQtd(jsonOBJ);
+    }
     const fs = require('fs');
     fs.writeFileSync("saida.json", JSON.stringify(jsonNEW, null, 2), (err, result) => {
         if (err) console.log(err);
